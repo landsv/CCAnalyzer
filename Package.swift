@@ -18,6 +18,10 @@ let package = Package(
         .target(
             name: "CCAnalyzerCore",
             dependencies: ["Commander", "Swinject"]
+        ),
+        .testTarget(
+            name: "CCAnalyzerTests",
+            dependencies: ["CCAnalyzerCore"]
         )
     ]
 )

@@ -28,7 +28,7 @@ public class HTTPClient {
     
     private let baseURL: URL
     
-    init(baseURL: URL) {
+    public init(baseURL: URL) {
         self.baseURL = baseURL
     }
     
@@ -41,16 +41,18 @@ public class HTTPClient {
     
     // MARK: Requests
     
-    private func createRequest(withMethod: HTTPMethod, path: String, parameters: [String: String]?) -> URLRequest? {
-        var urlComponents = URLComponents()
+    public func createRequest(withMethod method: HTTPMethod, path: String, parameters: [String: String]?) -> URLRequest? {
+        guard var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else {
+            return nil
+        }
         let parm = parameters?.map({ URLQueryItem(name: $0.key, value: $0.value) })
-        urlComponents.scheme = baseURL.scheme
-        urlComponents.host = baseURL.host
         urlComponents.path = path
         urlComponents.queryItems = parm
-        
-        if let url = urlComponents.url { return URLRequest(url: url) }
-        return nil
+
+        guard let url = urlComponents.url else { return nil }
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        return request
     }
     
     private func send(request: URLRequest?, completion: @escaping (Result<HTTPResponse>) -> Void) {
