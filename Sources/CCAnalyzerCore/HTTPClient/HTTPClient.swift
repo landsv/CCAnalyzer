@@ -34,18 +34,20 @@ public class HTTPClient {
     
     // MARK: API
     
-    public func GET(path: String, parameters: [String: Any]? = nil, completion: @escaping (Result<HTTPResponse>) -> Void) {
+    public func GET(path: String, parameters: [String: String]? = nil, completion: @escaping (Result<HTTPResponse>) -> Void) {
         let request = createRequest(withMethod: .GET, path: path, parameters: parameters)
         send(request: request, completion: completion)
     }
     
     // MARK: Requests
     
-    private func createRequest(withMethod: HTTPMethod, path: String, parameters: [String: Any]?) -> URLRequest? {
+    private func createRequest(withMethod: HTTPMethod, path: String, parameters: [String: String]?) -> URLRequest? {
         var urlComponents = URLComponents()
+        let parm = parameters?.map({ URLQueryItem(name: $0.key, value: $0.value) })
         urlComponents.scheme = baseURL.scheme
         urlComponents.host = baseURL.host
         urlComponents.path = path
+        urlComponents.queryItems = parm
         
         if let url = urlComponents.url { return URLRequest(url: url) }
         return nil
