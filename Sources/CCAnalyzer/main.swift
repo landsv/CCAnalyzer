@@ -1,1 +1,2 @@
-print("Hello, world!")
+let asm = CCAnalyzerAssembler()
+asm.assemble()

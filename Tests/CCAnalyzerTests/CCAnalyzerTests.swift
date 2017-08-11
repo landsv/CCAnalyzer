@@ -1,3 +1,10 @@
+//
+//  CCAnalyzerTests.swift
+//  CCAnalyzer
+//
+//  Created by Sviatoslav Belmeha on 8/11/17.
+//
+
 import Foundation
 import XCTest
 import CCAnalyzerCore

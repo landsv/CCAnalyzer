@@ -1,3 +1,10 @@
+//
+//  HTTPClient.swift
+//  CCAnalyzer
+//
+//  Created by Sviatoslav Belmeha on 8/11/17.
+//
+
 import Foundation
 
 public typealias JSON = [String: Any]
